@@ -9,8 +9,12 @@ const Menuslice = createSlice({
     Togglemenu: (state) => {
       state.istogglemenu = !state.istogglemenu;
     },
+    closemenu:(state)=>{
+      state.istogglemenu = false;
+    }
   },
 });
-
+// exporting the reducer function 
 export default Menuslice.reducer;
-export const { Togglemenu } = Menuslice.actions;
+// exporting the action 
+export const { Togglemenu , closemenu } = Menuslice.actions;

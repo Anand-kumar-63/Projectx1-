@@ -28,7 +28,7 @@
 import React, { useState, useEffect } from 'react';
 import VedioCard from './VedioCard';
 import data from '../utils/raw_data';
-
+import {Link} from "react-router-dom"
 const VedioContainer = () => {
   const [vedios, setvedios] = useState([]);
   useEffect(() => {
@@ -39,9 +39,11 @@ const VedioContainer = () => {
   if (!vedios.length) {
     return <div>Loading...</div>;
   }
-  return (
-    <div>
-      <VedioCard info={vedios[0]} />
+  return ( 
+    <div className='flex flex-wrap w-[1320px] mt-2'>
+    {vedios.map((vedio) => (
+     <Link to={"/videopage?"+vedio.id}>  <VedioCard key={vedio.id} info={vedio}  /></Link>
+    ))}   
     </div>
   );
 };

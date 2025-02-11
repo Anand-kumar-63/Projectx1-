@@ -3,8 +3,8 @@ import Button from "./Button";
 import { Icon } from "@iconify/react";
 const Buttonlist = () => {
   return (
-    <div className="flex w-[1300px] overflow-hidden ">
-      <ul className="flex gap-3 overflow-x-scroll -ms-overflow-style-none" >
+    <div className="flex w-[1320px] overflow-hidden ">
+      <ul className="flex gap-3" >
       <li>
           <Button name="soccer" />
         </li>

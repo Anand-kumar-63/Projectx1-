@@ -1,5 +1,5 @@
 npm i react-redux @react/toolkit
-Create store
+Create store using {configurestore}
 Create slices >> name , inital value , reducers
 Provide store to app component
 dispatch action form the header hamburger click
@@ -31,3 +31,40 @@ dispatch action form the header hamburger click
   >> for testing -- react test lib
 ## planning
 # why report web vitals used for??
+
+
+# routing 
+>>Install react router dom 
+>>In app.js make routes using Create Browser Router.
+>>provide the routes using router provider from react-router-dom
+>> where ever i will provide my router provider my element will render over there in the app.js file
+>> in the porject body will render below the head
+
+>> And the childrebn will load where the outlet is >> in this outlet is in the body component 
+  const approuter = createBrowserRouter([{
+  path:"/",
+  element: <Body />
+   children:[
+    {
+      path:'/',
+      element:<MainContainer />
+    },
+    {
+      path:"/watchpage",
+      element:<watchpage />
+    }
+  ]
+  }
+
+>>Body has two childrens sidebar and main container
+so when path changes body should body watchpage instead of main container
+so for this outlet component from react-router-dom is used inn body component
+
+# Link form react-router-dom
+>>use to link each vedio card with there respecting url or path so that when we click on it >> directs us to that page
+>>while routing means making that route to the page and linking the app.js to it so that any component can use that route
+
+{{read more about routes and links}}
+# close menu action 
+>>when we are routing to the vedioapeg sidebar should be closed so for this we have to make a action and dispatch{from useDispatch() hook} it when video component loads
+>>Action in menuslice and dispatch using dispatch() inaside use effect  
