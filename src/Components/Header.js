@@ -34,7 +34,7 @@ const Header = () => {
     dispatch(Togglemenu());
   };
   return (
-    <div className="flex bg-white justify-between shadow-lg rounded-md font-mono">
+    <div className="flex bg-white justify-between shadow-md rounded-md font-mono h-14">
       <div className="flex gap-1 h-16 items-center justify-center">
         <img
           onClick={() => togglethemenu()}

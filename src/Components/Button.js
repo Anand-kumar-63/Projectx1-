@@ -1,9 +1,13 @@
 import React from "react";
-
+import { useState } from "react";
 const Button = ({name})=>{
+  const [color , setcolor] = useState(false);
+
   return(
     <div>
-    <button className="bg-gray-300 m-1 px-4 rounded-md whitespace-nowrap">{name}</button>
+    <button  onClick={()=>setcolor(!color)}  className={`m-1 p-1 px-3 rounded-lg whitespace-nowrap ${
+        color ? "bg-white text-black" : "bg-gray-300"
+      }`}>{name}</button>
     </div>
   )
 }

@@ -122,3 +122,8 @@ https://www.youtube.com/watch?v=8M7d8T8ee3M
   onFocus={()=>setshowsuggetions(true)}
   onBlur={()=>setshowsuggetions(false)}
   >>where showsuggetion is a state variable 
+
+# making scrollable nav buttons
+- useref hook is used to manipulate dom 
+- It returns an object containing current value as initially given by you 
+const refelement = useref("empty string");
