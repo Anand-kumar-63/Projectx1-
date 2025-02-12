@@ -42,7 +42,7 @@ const VedioContainer = () => {
   return ( 
     <div className='flex flex-wrap w-[1320px] mt-2'>
     {vedios.map((vedio) => (
-     <Link to={"/videopage?"+vedio.id}>  <VedioCard key={vedio.id} info={vedio}  /></Link>
+     <Link to={"/videopage?id="+vedio.id}>  <VedioCard key={vedio.id} info={vedio}  /></Link>
     ))}   
     </div>
   );

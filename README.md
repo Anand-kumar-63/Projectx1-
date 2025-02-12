@@ -68,3 +68,57 @@ so for this outlet component from react-router-dom is used inn body component
 # close menu action 
 >>when we are routing to the vedioapeg sidebar should be closed so for this we have to make a action and dispatch{from useDispatch() hook} it when video component loads
 >>Action in menuslice and dispatch using dispatch() inaside use effect  
+
+# Search params 
+>>To extract something from Queryparams we use {usesearchparams} from react-router-dom
+usesearchparams is like usestate hook 
+const[searchParams , setsearchParmas] = usesearchparams();
+>>then to extract something we use 
+searchparams.get("parameter")
+>>setSearchparams is used for setting the param 
+<button onClick(()=>setSearchParams({age:anything}))>my age is {searchParams.get("age")}<button>
+<!-- read more -->
+https://www.youtube.com/watch?v=8M7d8T8ee3M 
+
+# Higher Order components 
+>>Components takes in a Component and returns a Components..or we can say moidfies the component a little
+
+#[interview question]--
+#make the SearchBar
+>>youtube makes api call so fast that on every key strock it sends an api call
+>>if the difference between two key stroks is very less then the api call for every key strok is useless  >> less number of api calls when speed is high
+>>{concept of Debouncing}
+  --debouncing with 200ms>>if the difference btw two key stroks is <200ms dont make an api call >>if the difference is >200ms then make an api call
+  -- debpuncing time for google and youtube {30ms}is very less as compare to flipkart{200ms} 
+[Debouncing]
+ const [searchquery, setsearchquery] = useState("");
+  useEffect(() => {
+  const timer = setTimeout(() => searchdata(),200);
+  // to end this timer if any other key is pressed within the 200ms time
+  return()=>{
+    clearTimeout(timer);
+  };
+  }, [searchquery]);
+
+  const searchdata = async () => {
+    try {
+      const response = await fetch(
+        `https://suggestqueries-clients6.youtube.com/complete/search?client=youtube-reduced&hl=en&gs_ri=youtube-reduced&ds=yt&q=${searchquery}&xhr=t&xssi=t&gl=us`
+      );
+      const textData = await response.text(); // Get raw response as text
+      // Remove the YouTube security prefix
+      const jsonData = JSON.parse(textData.replace(/^\)\]\}'/, ""));
+      console.log(jsonData[1]); // Log the cleaned-up response  
+    } catch (error) {
+      console.error("Error fetching search suggestions:", error);
+    }
+  };
+  
+
+
+>>youtube search api {https://clients1.google.com/complete/search?client=youtube&gs_ri=youtube&ds=yt&q=faded}
+
+# use of focus and blur property to hide the search suggestions as required
+  onFocus={()=>setshowsuggetions(true)}
+  onBlur={()=>setshowsuggetions(false)}
+  >>where showsuggetion is a state variable 
