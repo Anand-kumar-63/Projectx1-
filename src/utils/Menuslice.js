@@ -11,8 +11,9 @@ const Menuslice = createSlice({
     },
     closemenu:(state)=>{
       state.istogglemenu = false;
-    }
+    },
   },
+
 });
 // exporting the reducer function 
 export default Menuslice.reducer;

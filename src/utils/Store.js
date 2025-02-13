@@ -13,6 +13,7 @@ const AppStore = configureStore({
   reducer: {
     sidebar: Menuslice, // Use the Menuslice reducer here
   },
+  
 });
 
 export default AppStore;

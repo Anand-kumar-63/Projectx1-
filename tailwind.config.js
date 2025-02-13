@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily:{
+        body:['Roboto:ital']
+      },
+    },
     divideWidth: {
       DEFAULT: "1px",
       "0": "0",

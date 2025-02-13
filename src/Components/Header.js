@@ -34,19 +34,19 @@ const Header = () => {
     dispatch(Togglemenu());
   };
   return (
-    <div className="flex bg-white justify-between shadow-md rounded-md font-mono h-14">
-      <div className="flex gap-1 h-16 items-center justify-center">
+    <div className="flex bg-white justify-between shadow-md rounded-md font-roboto h-14">
+      <div className="flex h-14 items-center">
         <img
           onClick={() => togglethemenu()}
           src="https://imgs.search.brave.com/-KeMJ4XDPtfRHSk5eYvtEpdUD5fXEOap4xqVNgYjwJk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAxLzA5LzQ1Lzgw/LzM2MF9GXzEwOTQ1/ODAxNV9Rc1dtY2hs/enV3Q1pQcUlVV1I3/SGNURHNiYnB0ZWpS/di5qcGc"
           alt="hmaburger icon"
-          className="h-7 w-8 cursor-pointer ml-4"
+          className="h-7 w-6 object-contain cursor-pointer ml-4"
         />
 
         <img
           src="https://imgs.search.brave.com/UzpyViJrQPPCbpJzTIz3Ac2rrPvErzU6NAVqUAApTdU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9mcmVl/cG5nbG9nby5jb20v/aW1hZ2VzL2FsbF9p/bWcvMTcyNzYxMTYy/Nl9sb2dvLXlvdXR1/YmUtcG5nLmpwZw"
           alt="youtube"
-          className="h-120px w-[180px] h-9"
+          className=" w-[180px] h-9 object-contain"
         />
       </div>
       <div>

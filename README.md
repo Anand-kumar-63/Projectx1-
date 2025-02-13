@@ -127,3 +127,4 @@ https://www.youtube.com/watch?v=8M7d8T8ee3M
 - useref hook is used to manipulate dom 
 - It returns an object containing current value as initially given by you 
 const refelement = useref("empty string");
+using this you have to make the scrollable nav buttons
