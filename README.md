@@ -128,3 +128,37 @@ https://www.youtube.com/watch?v=8M7d8T8ee3M
 - It returns an object containing current value as initially given by you 
 const refelement = useref("empty string");
 using this you have to make the scrollable nav buttons
+
+
+# setting up the API
+
+# npm i react-youtube package 
+>>we get different function to explore at youtube ifrmae API
+>>this is the component you have to import in
+
+import React from "react";
+import YouTube from "react-youtube";
+
+class YoutubeVideo extends React.Component {
+  VideoOnReady(event) {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
+  }
+  render() {
+    const opts = {
+      height: "476",
+      width: "792",
+      playerVars: {
+        // https://developers.google.com/youtube/player_parameters
+        autoplay: 1,
+      },
+    };
+    const { videoId } = this.props;
+
+    return (
+      <YouTube videoId={videoId} opts={opts} onReady={this.VideoOnReady} />
+    );
+  }
+}
+
+export default YoutubeVideo;
