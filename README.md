@@ -203,3 +203,8 @@ Use DOMPurify to prevent any malicious scripts from being injected
 npm install dompurify
 import DOMPurify from "dompurify";
 <p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(message) }} />
+
+
+# Write reply section 
+## emoji section 
+

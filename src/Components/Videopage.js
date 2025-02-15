@@ -7,13 +7,13 @@ import { useSearchParams } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import Comments from "./Comments/Comments";
 import Description from "./Description/Description";
-  const Videopage = () => {
+const Videopage = () => {
   // to get the params from the url of the page we use searchParams
-   const buttons = ["All", "React", "Web"];
-   const [videodata, setvideodata] = useState([]);
-   const dispatch = useDispatch();
-   const btnname = "subscribe";
-  
+  const buttons = ["All", "React", "Web"];
+  const [videodata, setvideodata] = useState([]);
+  const dispatch = useDispatch();
+  const btnname = "subscribe";
+
   //  dispatch the closemenu action inside the use effect
   useEffect(() => {
     dispatch(closemenu());
@@ -21,11 +21,11 @@ import Description from "./Description/Description";
   useEffect(() => {
     getdata();
   }, []);
-  
+
   // to get the id
   const [SearchParams] = useSearchParams();
   const id = SearchParams.get("id");
-  
+
   // to get data from id
   const getdata = async () => {
     const data = await fetch(
@@ -35,8 +35,7 @@ import Description from "./Description/Description";
     // console.log(stat.items[0]);
     setvideodata(stat.items[0]);
   };
-  const { snippet,
-    statistics } = videodata;
+  const { snippet, statistics } = videodata;
 
   // vedioplayer btns
   const btns = ["share", "download"];
@@ -52,11 +51,10 @@ import Description from "./Description/Description";
     <div className="flex flex-row">
       {/* /video section of the video */}
       <div className="m-4 ml-[120px] w-[800px]">
-      
         <div className="h-[480px] w-[800px] flex items-center justify-center bg-black  rounded-xl">
           <YoutubeVideo videoId={id} />
         </div>
-      
+
         <div className="font-body font-bold mt-3">
           <div className="text-2xl">{snippet?.localized?.title}</div>
           <div className="flex justify-between">
@@ -104,21 +102,28 @@ import Description from "./Description/Description";
           </div>
         </div>
 
-       <Description />
+        <Description />
         <div>
           <Comments />
         </div>
       </div>
 
       {/* suggestion section of the videopage  */}
-      <div className="mt-2 h-[70px] w-auto">
-        <ul className="flex mt-4 px-4">
-          {buttons.map((name, index) => (
-            <li key={index}>
-              <Button name={name} />
-            </li>
-          ))}
-        </ul>
+      <div className="mt-2 flex flex-col">
+        <div>
+          <ul className="flex mt-4 px-4">
+            {buttons.map((name, index) => (
+              <li key={index}>
+                <Button name={name} />
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          hey
+        </div>
+
       </div>
     </div>
   );

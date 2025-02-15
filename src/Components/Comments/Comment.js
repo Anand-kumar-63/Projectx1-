@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import DOMpurify from "dompurify"
+import DOMpurify from "dompurify";
+import Replysection from "./Replysection";
 const Comment = ({ comment }) => {
   const [repliesOpen, setRepliesOpen] = useState(false);
+  const [Reportbtn, showReportbtn] = useState(false);
   const { snippet } = comment;
-
+  const [writereply, setwritereply] = useState(false);
   function MusicPromo({ message }) {
     return (
       <div className="p-4 bg-gray-200 rounded-md">
@@ -16,7 +18,18 @@ const Comment = ({ comment }) => {
 
   //comment section of the vedios
   return (
-    <div key={comment.id} className="mb-4">
+    <div key={comment.id} className="mb-4 relative">
+      {Reportbtn && (
+        <button className="flex gap-1 duration-200 absolute z-10 -right-1.5 top-1.5  px-4 p-2 hover:bg-gray-500 bg-gray-400 rounded-xl mt-16">
+          <Icon
+            icon="material-symbols:flag-outline-rounded"
+            width="24"
+            height="24"
+          />
+          Report
+        </button>
+      )}
+
       <div className="flex gap-2 relative">
         <div className="w-12 h-auto">
           <Link
@@ -34,13 +47,19 @@ const Comment = ({ comment }) => {
           <div className="select-none font-semibold">
             {snippet?.topLevelComment?.snippet?.authorDisplayName}
           </div>
-          <div className="flex items-center gap-2 bg-gray-300 rounded-md p-2 tracking-tighter leading-tight">
+          <div className="flex items-center w-[600px] gap-2 bg-gray-300 rounded-md p-2 tracking-tighter leading-tight">
             <p
               dangerouslySetInnerHTML={{
-                __html: DOMpurify.sanitize(snippet?.topLevelComment?.snippet?.textDisplay)
+                __html: DOMpurify.sanitize(
+                  snippet?.topLevelComment?.snippet?.textDisplay
+                ),
               }}
             />
-            <button className="rounded-full bg-gray-5 absolute right-0 h-8 ml-2">
+            <button
+              onClick={() => showReportbtn(!Reportbtn)}
+              style={{ minWidth: "36px", minHeight: "36px" }}
+              className="rounded-full flex justify-center items-center  bg-gray-5 absolute right-1 h-8 ml-2 hover:bg-gray-400"
+            >
               <Icon icon="ph:dots-three-vertical-bold" width="20" height="24" />
             </button>
           </div>
@@ -59,21 +78,24 @@ const Comment = ({ comment }) => {
             height={28}
           />
         </div>
-        <div>
-          <button className="h-7 w-auto px-3 bg-gray-300 rounded-2xl hover:bg-gray-400">
+        <div className="flex flex-col">
+          <button
+            onClick={() => setwritereply(!writereply)}
+            className="h-7 w-auto px-3 bg-gray-300 rounded-2xl hover:bg-gray-400"
+          >
             Reply
           </button>
         </div>
       </div>
-
+      { writereply && <Replysection />}
+      
       {/* reply section of the commments */}
       <div className={`ml-12 rounded-lg`}>
         {comment.replies?.comments?.length > 0 && (
           <button
-            className="px-4 py-2 rounded-full duration-300 hover:bg-zinc-200 flex items-center"
+            className="px-4 py-2 mt-1 rounded-full gap-1 duration-300 hover:bg-gray-400 flex items-center"
             onClick={() => setRepliesOpen(!repliesOpen)}
           >
-            <span>{comment.replies.comments.length} Replies</span>
             <Icon
               icon={`${
                 repliesOpen
@@ -82,12 +104,13 @@ const Comment = ({ comment }) => {
               }`}
               className="size-6"
             />
+            <span>{comment.replies.comments.length} replies</span>
           </button>
         )}
 
         {repliesOpen &&
           comment.replies?.comments.map((reply) => (
-            <div key={reply.id} className="mb-4">
+            <div key={reply.id} className="mb-4 mt-3">
               <div className="flex gap-2 relative">
                 <div className="w-12 h-auto">
                   <Link

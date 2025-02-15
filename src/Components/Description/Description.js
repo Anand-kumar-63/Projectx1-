@@ -1,7 +1,7 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-
+import DOMpurify from "dompurify";
 const Description = () => {
   const formatNumber = (num) => {
     if (!num) return "0"; // Handle undefined/null values
@@ -34,15 +34,32 @@ const Description = () => {
   };
   const { snippet, statistics } = videodata;
 
-  console.log(snippet)
+  console.log(snippet);
+
+  function MusicPromo({ message }) {
+    return (
+      <div className="p-4 bg-gray-200 rounded-md">
+        <p dangerouslySetInnerHTML={{ __html: { message } }} />
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-300 flex flex-col items-end rounded-lg p-4">
       <div className={`mt-5 overflow-hidden ${!showFull ? "h-[100px]" : ""}`}>
-        <div>{formatNumber(statistics?.viewCount)} views</div>
-        <div>{snippet?.description}</div>
+        <div>{formatNumber(statistics?.viewCount)}</div>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: DOMpurify.sanitize(snippet?.description || ""),
+          }}
+        />
       </div>
-      <button className="w-24 rounded-sm h-8 bg-slate-300" onClick={() => setShowFull(!showFull)}>Show { showFull ? "Less" : "More" }</button>
+      <button
+        className="w-24 rounded-sm h-8 bg-slate-300"
+        onClick={() => setShowFull(!showFull)}
+      >
+        Show {showFull ? "Less" : "More"}
+      </button>
     </div>
   );
 };
