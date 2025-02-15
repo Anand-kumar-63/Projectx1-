@@ -1,0 +1,50 @@
+import React from "react";
+import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+const Description = () => {
+  const formatNumber = (num) => {
+    if (!num) return "0"; // Handle undefined/null values
+    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M"; // Convert to M (millions)
+    if (num >= 1_000) return (num / 1_000).toFixed(0) + "K"; // Convert to K (thousands)
+    return num; // If less than 1000, return as is
+  };
+
+  const [videodata, setvideodata] = useState([]);
+  const [showFull, setShowFull] = useState(false);
+
+  useEffect(() => {
+    getdata();
+  }, []);
+  // to get the id
+  const [SearchParams] = useSearchParams();
+  const id = SearchParams.get("id");
+  // to get data from id
+  const getdata = async () => {
+    try {
+      const data = await fetch(
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${id}&key=AIzaSyCw9eOmRziBvp5ALYMHFkMIx1eRs04nbPM`
+      );
+      const stat = await data.json();
+      console.log(stat.items[0]);
+      setvideodata(stat.items[0]);
+    } catch (err) {
+      console.error("ERROR", err);
+    }
+  };
+  const { snippet, statistics } = videodata;
+
+  console.log(snippet)
+
+  return (
+    <div className="bg-gray-300 flex flex-col items-end rounded-lg p-4">
+      <div className={`mt-5 overflow-hidden ${!showFull ? "h-[100px]" : ""}`}>
+        <div>{formatNumber(statistics?.viewCount)} views</div>
+        <div>{snippet?.description}</div>
+      </div>
+      <button className="w-24 rounded-sm h-8 bg-slate-300" onClick={() => setShowFull(!showFull)}>Show { showFull ? "Less" : "More" }</button>
+    </div>
+  );
+};
+
+export default Description;

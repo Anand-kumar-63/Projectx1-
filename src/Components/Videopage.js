@@ -5,13 +5,15 @@ import YoutubeVideo from "./Iframe";
 import Button from "./Button";
 import { useSearchParams } from "react-router-dom";
 import { Icon } from "@iconify/react";
-
-const Videopage = () => {
+import Comments from "./Comments/Comments";
+import Description from "./Description/Description";
+  const Videopage = () => {
   // to get the params from the url of the page we use searchParams
-  const buttons = ["All", "React", "Web"];
-  const [videodata, setvideodata] = useState([]);
-  const dispatch = useDispatch();
-  const btnname = "subscribe";
+   const buttons = ["All", "React", "Web"];
+   const [videodata, setvideodata] = useState([]);
+   const dispatch = useDispatch();
+   const btnname = "subscribe";
+  
   //  dispatch the closemenu action inside the use effect
   useEffect(() => {
     dispatch(closemenu());
@@ -19,21 +21,33 @@ const Videopage = () => {
   useEffect(() => {
     getdata();
   }, []);
+  
   // to get the id
   const [SearchParams] = useSearchParams();
   const id = SearchParams.get("id");
+  
   // to get data from id
   const getdata = async () => {
     const data = await fetch(
       `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${id}&key=AIzaSyCw9eOmRziBvp5ALYMHFkMIx1eRs04nbPM`
     );
     const stat = await data.json();
-    console.log(stat.items[0]);
+    // console.log(stat.items[0]);
     setvideodata(stat.items[0]);
   };
-  const { snippet } = videodata;
+  const { snippet,
+    statistics } = videodata;
+
   // vedioplayer btns
   const btns = ["share", "download"];
+
+  // function for formating the numbers::
+  const formatNumber = (num) => {
+    if (!num) return "0"; // Handle undefined/null values
+    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M"; // Convert to M (millions)
+    if (num >= 1_000) return (num / 1_000).toFixed(0) + "K"; // Convert to K (thousands)
+    return num; // If less than 1000, return as is
+  };
   return (
     <div className="flex flex-row">
       {/* /video section of the video */}
@@ -62,14 +76,15 @@ const Videopage = () => {
 
             <div className="flex items-center">
               <div className="flex gap-0.5">
-                <button className="w-12 p-1 px-4 bg-gray-400 rounded-l-full">
+                <button className="w-22 p-1 px-2 flex bg-gray-200 rounded-l-full gap-1 hover:bg-gray-300">
                   <Icon
                     icon="stash:thumb-up-light"
                     width={24}
                     height={24}
                   ></Icon>
+                  <div>{formatNumber(statistics?.likeCount)}</div>
                 </button>
-                <button className="w-12 p-1 bg-gray-400 rounded-r-full">
+                <button className="w-12 rounded-r-full flex justify-center items-center bg-gray-200 hover:bg-gray-300">
                   <Icon
                     icon="stash:thumb-down-light"
                     width={24}
@@ -82,18 +97,17 @@ const Videopage = () => {
                   <Button name={name}></Button>
                 </li>
               ))}
-              <button className="rounded-full bg-gray-400">
+              <button className="rounded-full bg-gray-100">
                 <Icon icon="ph:dots-three-circle" width="38" height="38"></Icon>
               </button>
             </div>
           </div>
         </div>
-      
-        <div className="bg-gray-300 mt-5 rounded-lg p-4">
-          {}
-          {snippet?.description}
-          </div>
-    
+
+       <Description />
+        <div>
+          <Comments />
+        </div>
       </div>
 
       {/* suggestion section of the videopage  */}

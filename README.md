@@ -162,3 +162,44 @@ class YoutubeVideo extends React.Component {
 }
 
 export default YoutubeVideo;
+
+# description added
+## readmore feature
+usestate and ternary operator 
+const [show , setshow] = usestate(false);
+<button onclick={()=>setshow(!show)}></button>
+{show && component : null}
+
+# comment added 
+>>using comment api and destructuring the data
+##replies to the comment added
+using map on every comment
+
+
+#  HTML-encoded string to text 
+>>dangerouslySetInnerHTML allows React to render the raw HTML inside the message string.
+It ensures that <br>, <b>, and <a> elements work properly.
+>>Steps to Implement dangerouslySetInnerHTML
+Identify the part where comment text (snippet?.textOriginal) is being displayed.
+Replace it with a <p> tag that uses dangerouslySetInnerHTML.
+
+function MusicPromo() {
+  return (
+    <div className="p-4 bg-gray-200 rounded-md">
+      <p dangerouslySetInnerHTML={{ __html: message }} />
+    </div>
+  );
+}
+
+
+>>Why Use dangerouslySetInnerHTML?
+Some comments may contain bold text, links, emojis, and line breaks (e.g., <b>Hello</b>, <br>, <a href="#">Link</a>).
+This method ensures the HTML formatting inside comments is preserved
+
+## 🚨 Security Reminder!
+Since dangerouslySetInnerHTML can be risky (prone to XSS attacks), you must sanitize the text before rendering.
+Use DOMPurify to prevent any malicious scripts from being injected
+
+npm install dompurify
+import DOMPurify from "dompurify";
+<p dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(message) }} />

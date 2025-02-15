@@ -9,6 +9,7 @@ import MainContainer from './Components/MainContainer';
 import Videopage from './Components/Videopage'
 import Shorts from './Components/Shorts';
 import Subs from "./Components/Subs"
+import Channel from './Components/Channel';
 function App() {
 
 
@@ -33,6 +34,10 @@ function App() {
   ,{
     path:"/Subs",
     element:<Subs />
+  },
+  {
+    path:"/Channel",
+    element:<Channel />
   }
 ])
   return (

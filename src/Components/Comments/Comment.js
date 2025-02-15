@@ -1,0 +1,151 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import DOMpurify from "dompurify"
+const Comment = ({ comment }) => {
+  const [repliesOpen, setRepliesOpen] = useState(false);
+  const { snippet } = comment;
+
+  function MusicPromo({ message }) {
+    return (
+      <div className="p-4 bg-gray-200 rounded-md">
+        <p dangerouslySetInnerHTML={{ __html: { message } }} />
+      </div>
+    );
+  }
+
+  //comment section of the vedios
+  return (
+    <div key={comment.id} className="mb-4">
+      <div className="flex gap-2 relative">
+        <div className="w-12 h-auto">
+          <Link
+            to={`/ChannelId=${snippet?.topLevelComment?.snippet?.authorChannelId?.value}`}
+          >
+            <img
+              className="rounded-full w-12 h-12 object-cover flex-none"
+              style={{ minWidth: "48px", minHeight: "48px" }}
+              alt="Profile"
+              src={snippet?.topLevelComment?.snippet?.authorProfileImageUrl}
+            />
+          </Link>
+        </div>
+        <div>
+          <div className="select-none font-semibold">
+            {snippet?.topLevelComment?.snippet?.authorDisplayName}
+          </div>
+          <div className="flex items-center gap-2 bg-gray-300 rounded-md p-2 tracking-tighter leading-tight">
+            <p
+              dangerouslySetInnerHTML={{
+                __html: DOMpurify.sanitize(snippet?.topLevelComment?.snippet?.textDisplay)
+              }}
+            />
+            <button className="rounded-full bg-gray-5 absolute right-0 h-8 ml-2">
+              <Icon icon="ph:dots-three-vertical-bold" width="20" height="24" />
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="flex items-center ml-[50px] gap-2 select-none cursor-pointer">
+        <div className="flex gap-1 w-auto justify-center rounded-lg items-center h-[30px]">
+          <div className="flex p-1 w-auto rounded-md bg-gray-300 hover:bg-gray-400">
+            <Icon icon="stash:thumb-up-light" width={24} height={24} />
+            {snippet?.topLevelComment?.snippet?.likeCount}
+          </div>
+          <Icon
+            className="bg-gray-300 hover:bg-gray-400 rounded-md"
+            icon="stash:thumb-down-light"
+            width={28}
+            height={28}
+          />
+        </div>
+        <div>
+          <button className="h-7 w-auto px-3 bg-gray-300 rounded-2xl hover:bg-gray-400">
+            Reply
+          </button>
+        </div>
+      </div>
+
+      {/* reply section of the commments */}
+      <div className={`ml-12 rounded-lg`}>
+        {comment.replies?.comments?.length > 0 && (
+          <button
+            className="px-4 py-2 rounded-full duration-300 hover:bg-zinc-200 flex items-center"
+            onClick={() => setRepliesOpen(!repliesOpen)}
+          >
+            <span>{comment.replies.comments.length} Replies</span>
+            <Icon
+              icon={`${
+                repliesOpen
+                  ? "material-symbols:keyboard-arrow-up-rounded"
+                  : "material-symbols:keyboard-arrow-down-rounded"
+              }`}
+              className="size-6"
+            />
+          </button>
+        )}
+
+        {repliesOpen &&
+          comment.replies?.comments.map((reply) => (
+            <div key={reply.id} className="mb-4">
+              <div className="flex gap-2 relative">
+                <div className="w-12 h-auto">
+                  <Link
+                    to={`/ChannelId=${reply.snippet?.authorChannelId?.value}`}
+                  >
+                    <img
+                      className="rounded-full w-12 h-12 object-cover flex-none"
+                      style={{ minWidth: "48px", minHeight: "48px" }}
+                      alt="Profile"
+                      src={reply.snippet?.authorProfileImageUrl}
+                    />
+                  </Link>
+                </div>
+                <div>
+                  <div className="select-none font-semibold">
+                    {reply.snippet?.authorDisplayName}
+                  </div>
+                  <div className="flex items-center gap-2 bg-gray-300 rounded-md p-2 tracking-tighter leading-tight">
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: reply.snippet?.textDisplay,
+                      }}
+                    />
+
+                    <button className="rounded-full bg-gray-5 absolute right-0 h-8 ml-2">
+                      <Icon
+                        icon="ph:dots-three-vertical-bold"
+                        width="20"
+                        height="24"
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-center ml-[50px] gap-2 select-none cursor-pointer">
+                <div className="flex gap-1 w-auto justify-center rounded-lg items-center h-[30px]">
+                  <div className="flex p-1 w-auto rounded-md bg-gray-300 hover:bg-gray-400">
+                    <Icon icon="stash:thumb-up-light" width={24} height={24} />
+                    {reply.snippet?.likeCount}
+                  </div>
+                  <Icon
+                    className="bg-gray-300 hover:bg-gray-400 rounded-md"
+                    icon="stash:thumb-down-light"
+                    width={28}
+                    height={28}
+                  />
+                </div>
+                <div>
+                  <button className="h-7 w-auto px-3 bg-gray-300 rounded-2xl hover:bg-gray-400">
+                    Reply
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+      </div>
+    </div>
+  );
+};
+
+export default Comment;
