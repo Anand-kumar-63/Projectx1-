@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { closemenu } from "../utils/Menuslice";
-import YoutubeVideo from "./Iframe";
-import Button from "./Button";
+import { closemenu } from "../../utils/Menuslice";
+import YoutubeVideo from "../Iframe";
+import Button from "../Button";
 import { useSearchParams } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import Comments from "./Comments/Comments";
-import Description from "./Description/Description";
+import Comments from "../Comments/Comments";
+import Description from "../Description/Description";
+import Suggestion from "./Suggestion";
+
 const Videopage = () => {
   // to get the params from the url of the page we use searchParams
   const buttons = ["All", "React", "Web"];
   const [videodata, setvideodata] = useState([]);
   const dispatch = useDispatch();
   const btnname = "subscribe";
-
   //  dispatch the closemenu action inside the use effect
   useEffect(() => {
     dispatch(closemenu());
   });
-  useEffect(() => {
-    getdata();
-  }, []);
-
-  // to get the id
   const [SearchParams] = useSearchParams();
   const id = SearchParams.get("id");
 
-  // to get data from id
+  useEffect(() => {
+    if(id){
+    getdata();}
+  }, [id]);
+
   const getdata = async () => {
     const data = await fetch(
       `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${id}&key=AIzaSyCw9eOmRziBvp5ALYMHFkMIx1eRs04nbPM`
@@ -120,10 +120,8 @@ const Videopage = () => {
           </ul>
         </div>
 
-        <div>
-          hey
-        </div>
-
+        <div className="">
+          <Suggestion /></div>
       </div>
     </div>
   );

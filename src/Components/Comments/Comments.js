@@ -10,14 +10,15 @@ const Comments = () => {
   const COMMENTS_API = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${id}&key=AIzaSyCw9eOmRziBvp5ALYMHFkMIx1eRs04nbPM`;
 
   useEffect(() => {
-    fetchComments();
-  }, []);
+    if(id){
+    fetchComments();}
+  }, [id]);
 
   const fetchComments = async () => {
     try {
       const response = await fetch(COMMENTS_API);
       const data = await response.json();
-      console.log(data.items);
+      // console.log(data.items);
       setComments(data.items || []);
     } catch (error) {
       console.error("Error fetching comments:", error);

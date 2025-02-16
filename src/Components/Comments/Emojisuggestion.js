@@ -14,7 +14,7 @@ const Emojisuggestion = () => {
   console.log(data);
  }
   return (
-    <div>Emojisuggestion</div>
+    <div></div>
   )
 }
 

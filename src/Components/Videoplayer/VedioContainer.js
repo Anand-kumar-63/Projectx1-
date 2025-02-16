@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import VedioCard from "./VedioCard";
 import { Link } from "react-router-dom";
-import youtube_api from "../utils/Constants"; 
+import youtube_api from "../../utils/Constants"; 
 
 const VedioContainer = () => {
   const [vedios, setvedios] = useState([]);
@@ -14,9 +14,10 @@ const VedioContainer = () => {
   const API_call = async () => {
     const data = await fetch(youtube_api);
     const videos = await data.json();
-    setvideoID(videos.items.map((video)=>video?.snippet?.resourceId?.videoId).join(","))
-    console.log(videoID); 
+    setvideoID(videos.items.map((video)=>video?.snippet?.resourceId?.videoId).join(","))  
    }
+  //  console.log(videoID)  
+
    useEffect(() => {
     if (videoID) {
       API_CALL1();

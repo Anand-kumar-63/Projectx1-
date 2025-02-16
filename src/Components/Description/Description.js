@@ -4,21 +4,24 @@ import { useEffect, useState } from "react";
 import DOMpurify from "dompurify";
 const Description = () => {
   const formatNumber = (num) => {
-    if (!num) return "0"; // Handle undefined/null values
-    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M"; // Convert to M (millions)
-    if (num >= 1_000) return (num / 1_000).toFixed(0) + "K"; // Convert to K (thousands)
-    return num; // If less than 1000, return as is
+    if (!num) return "0";
+    if (num >= 1_000_000) return (num / 1_000_000).toFixed(1) + "M";
+    if (num >= 1_000) return (num / 1_000).toFixed(0) + "K"; 
+        return num; 
   };
-
   const [videodata, setvideodata] = useState([]);
   const [showFull, setShowFull] = useState(false);
+  
+
+  const [SearchParams] = useSearchParams();
+  const id = SearchParams.get("id"); 
 
   useEffect(() => {
-    getdata();
-  }, []);
+   if(id) 
+    {getdata();}
+  }, [id]);
+
   // to get the id
-  const [SearchParams] = useSearchParams();
-  const id = SearchParams.get("id");
   // to get data from id
   const getdata = async () => {
     try {
@@ -26,7 +29,7 @@ const Description = () => {
         `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${id}&key=AIzaSyCw9eOmRziBvp5ALYMHFkMIx1eRs04nbPM`
       );
       const stat = await data.json();
-      console.log(stat.items[0]);
+      // console.log(stat.items[0]);
       setvideodata(stat.items[0]);
     } catch (err) {
       console.error("ERROR", err);
@@ -34,7 +37,7 @@ const Description = () => {
   };
   const { snippet, statistics } = videodata;
 
-  console.log(snippet);
+  // console.log(snippet);
 
   function MusicPromo({ message }) {
     return (

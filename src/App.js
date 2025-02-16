@@ -6,10 +6,14 @@ import { Provider } from 'react-redux';
 import AppStore from './utils/Store';
 import {createBrowserRouter , RouterProvider } from 'react-router-dom';
 import MainContainer from './Components/MainContainer';
-import Videopage from './Components/Videopage'
+import Videopage from './Components/Videoplayer/Videopage';
 import Shorts from './Components/Shorts';
 import Subs from "./Components/Subs"
 import Channel from './Components/Channel';
+import Signup from './Components/UserPage/Usersignup';
+import Login from './Components/UserPage/Userlogin';
+
+
 function App() {
 
 
@@ -38,6 +42,13 @@ function App() {
   {
     path:"/Channel",
     element:<Channel />
+  },{
+    path:"/Login",
+    element:<Login />
+  },
+  {
+    path:"/Signup",
+    element:<Signup />
   }
 ])
   return (

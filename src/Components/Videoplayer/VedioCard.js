@@ -1,7 +1,7 @@
 import React from 'react';
 
 const VedioCard = ({ info }) => {
-  console.log(info);
+  // console.log(info);
   const { snippet , statistics } = info;
   const { channelTitle , localized , thumbnails } = snippet;
   const thumbnailUrl = thumbnails?.medium?.url;

@@ -87,8 +87,8 @@ const Comment = ({ comment }) => {
           </button>
         </div>
       </div>
-      { writereply && <Replysection />}
-      
+      {writereply && <Replysection />}
+
       {/* reply section of the commments */}
       <div className={`ml-12 rounded-lg`}>
         {comment.replies?.comments?.length > 0 && (
@@ -110,7 +110,18 @@ const Comment = ({ comment }) => {
 
         {repliesOpen &&
           comment.replies?.comments.map((reply) => (
-            <div key={reply.id} className="mb-4 mt-3">
+            <div key={reply.id} className="mb-4 mt-3 relative">
+              {Reportbtn && (
+                <button className="flex gap-1 duration-200 absolute z-10 -right-1.5 top-1.5  px-4 p-2 hover:bg-gray-500 bg-gray-400 rounded-xl mt-16">
+                  <Icon
+                    icon="material-symbols:flag-outline-rounded"
+                    width="24"
+                    height="24"
+                  />
+                  Report
+                </button>
+              )}
+
               <div className="flex gap-2 relative">
                 <div className="w-12 h-auto">
                   <Link
@@ -135,7 +146,11 @@ const Comment = ({ comment }) => {
                       }}
                     />
 
-                    <button className="rounded-full bg-gray-5 absolute right-0 h-8 ml-2">
+                    <button
+                      onClick={() => showReportbtn(!Reportbtn)}
+                      style={{ minWidth: "36px", minHeight: "36px" }}
+                      className="rounded-full flex justify-center items-center  bg-gray-5 absolute right-1 h-8 ml-2 hover:bg-gray-400"
+                    >
                       <Icon
                         icon="ph:dots-three-vertical-bold"
                         width="20"
@@ -159,10 +174,15 @@ const Comment = ({ comment }) => {
                   />
                 </div>
                 <div>
-                  <button className="h-7 w-auto px-3 bg-gray-300 rounded-2xl hover:bg-gray-400">
+                  <button
+                    // onClick={() => setwritereply(!writereply)}
+                    className="h-7 w-auto px-3 bg-gray-300 rounded-2xl hover:bg-gray-400"
+                  >
                     Reply
                   </button>
                 </div>
+
+                {/* {writereply && <Replysection />} */}
               </div>
             </div>
           ))}

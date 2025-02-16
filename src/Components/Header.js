@@ -34,7 +34,7 @@ const Header = () => {
     dispatch(Togglemenu());
   };
   return (
-    <div className="flex bg-white justify-between shadow-md rounded-md font-roboto h-14">
+    <div className="flex bg-white justify-between rounded-md font-roboto h-14">
       <div className="flex h-14 items-center">
         <img
           onClick={() => togglethemenu()}
@@ -89,7 +89,6 @@ export default Header;
 /*
 key-i
 - on change function is called and state variable is updated
-
 -render the component
 -use  effect()
 - start timer for 200ms after that funtion to fetch the data is called

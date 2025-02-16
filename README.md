@@ -208,3 +208,13 @@ import DOMPurify from "dompurify";
 # Write reply section 
 ## emoji section 
 
+
+# Video suggestion 
+>>using tags of the video >> fetched the videos using tag names and dispalyed on the suggestion side
+>>first fetch the tags from the running video >> then fetch the video using tags>> replace # with "" then join with "|" to make a string >> in url q="string of tags"
+>> then again an api call using string of ids of all the videos comming from above api call to fetch the statistics part
+>>then apply map and display all
+
+# Signuppage
+# Login page
+>>npm i react-hook-from{read about it}
