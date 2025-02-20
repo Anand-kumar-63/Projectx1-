@@ -33,7 +33,7 @@ const Comment = ({ comment }) => {
       <div className="flex gap-2 relative">
         <div className="w-12 h-auto">
           <Link
-            to={`/Channel?id=${snippet?.topLevelComment?.snippet?.authorChannelId?.value}`}
+            to={`/Channel`+"?id="+`${snippet?.topLevelComment?.snippet?.authorChannelId?.value}`}
           >
             <img
               className="rounded-full w-12 h-12 object-cover flex-none"

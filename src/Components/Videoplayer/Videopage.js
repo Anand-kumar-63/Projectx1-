@@ -9,7 +9,7 @@ import Comments from "../Comments/Comments";
 import Description from "../Description/Description";
 import Suggestion from "./Suggestion";
 import { api_key } from "../../utils/Constants";
-
+import { Link } from "react-router-dom";
 const Videopage = () => {
   const ismenuopen = useSelector((state) => state.sidebar.istogglemenu);
 
@@ -65,12 +65,13 @@ const Videopage = () => {
           <div className="text-2xl">{snippet?.localized?.title}</div>
           <div className="flex justify-between">
             <div className="text-lg font-mono flex items-center gap-2">
-              <Icon
+             <Link to={`/Channel`+`?id=`+`${snippet?.channelId}`}> <Icon
                 icon="hugeicons:circle"
                 width="36"
                 height="36"
                 className="text-2xl"
               />
+</Link>              
               <div className="flex items-center">
                 {snippet?.channelTitle}
                 <Icon icon="mdi-tick-circle" width="14" height="14"></Icon>

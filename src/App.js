@@ -9,11 +9,10 @@ import MainContainer from './Components/MainContainer';
 import Videopage from './Components/Videoplayer/Videopage';
 import Shorts from './Components/Shorts';
 import Subs from "./Components/Subs"
-import Channel from './Components/Channel';
 import Signup from './Components/UserPage/Usersignup';
 import Login from './Components/UserPage/Userlogin';
 import Searchpage from './Components/SearchPage/Searchpage.jsx';
-import Channelpage from './Components/Channelpage/Channelpage.jsx';
+import ChannelPage from './Components/Channelpage/Channelpage.jsx';
 function App() {
   const approuter = createBrowserRouter([{
   path:"/",
@@ -26,6 +25,13 @@ function App() {
     {
       path:"/videopage",
       element:<Videopage />
+    },  {
+      path:"/Searchpage",
+      element:<Searchpage />
+    }
+    ,{
+      path:"/Channel",
+      element:<ChannelPage />
     }
   ]
   },
@@ -38,9 +44,6 @@ function App() {
     element:<Subs />
   },
   {
-    path:"/Channel",
-    element:<Channel />
-  },{
     path:"/Login",
     element:<Login />
   },
@@ -48,14 +51,7 @@ function App() {
     path:"/Signup",
     element:<Signup />
   },
-  {
-    path:"/Searchpage",
-    element:<Searchpage />
-  }
-  ,{
-    path:"/Channel?id=",
-    element:<Channelpage />
-  }
+
 ])
   return (
     <>
