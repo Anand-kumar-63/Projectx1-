@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Comment from "./Comment";
-
+import { api_key } from "../../utils/Constants";
 const Comments = () => {
+
+
+  const apikey = api_key;
   // to get the id
   const [comments, setComments] = useState([]);
   const [SearchParams] = useSearchParams();
   const id = SearchParams.get("id");
-  const COMMENTS_API = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${id}&key=AIzaSyCw9eOmRziBvp5ALYMHFkMIx1eRs04nbPM`;
+  const COMMENTS_API = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${id}&key=${apikey}`;
 
   useEffect(() => {
     if(id){
@@ -27,7 +30,7 @@ const Comments = () => {
 
   return (
     <div className="h-auto my-4 rounded-md bg-gray-300 p-2">
-      {comments.map((comment) => <Comment comment={comment} />)}
+      {comments.map((comment) => <Comment key={comment.id} comment={comment} />)}
     </div>
   );
 };

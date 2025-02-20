@@ -2,6 +2,8 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import DOMpurify from "dompurify";
+import {api_key} from "../../utils/Constants"
+
 const Description = () => {
   const formatNumber = (num) => {
     if (!num) return "0";
@@ -26,7 +28,7 @@ const Description = () => {
   const getdata = async () => {
     try {
       const data = await fetch(
-        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${id}&key=AIzaSyCw9eOmRziBvp5ALYMHFkMIx1eRs04nbPM`
+        `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${id}&key=${api_key}`
       );
       const stat = await data.json();
       // console.log(stat.items[0]);

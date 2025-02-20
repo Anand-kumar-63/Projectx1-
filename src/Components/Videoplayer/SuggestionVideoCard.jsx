@@ -12,7 +12,7 @@ const SuggestionVideoCard = ({ info }) => {
     if (num >= 10000000)  return ((num/1000000).toFixed(0) + "M")
   }
   return (
-    <div className="text-xs shadow-lg rounded-sm w-[430px] h-[120px] flex gap-2 bg-white mx-4 my-2 hover:scale-[1.002] hover:transition-all duration-200">
+    <div className="text-xs rounded-sm w-[430px] h-[120px] flex gap-2 bg-white mx-4 my-2 hover:scale-[1.002] hover:transition-all duration-200">
       <img
         className="rounded-lg w-auto h-[110px] hover:rounded-none"
         alt="video thumbnail"

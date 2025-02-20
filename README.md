@@ -218,3 +218,68 @@ import DOMPurify from "dompurify";
 # Signuppage
 # Login page
 >>npm i react-hook-from{read about it}
+>> its a react library helps in validating{ minlength, max length , required , and etc} the data entered in the form 
+>> you can easily handle the errors
+read more about it>>https://www.youtube.com/watch?v=wB3Jf7yyvfU
+
+# SearchPage
+>> search suggestions can be used as queries 
+>>use query to find the videos >> and then find id using destructuring and then make a string using join but before joining all the ids in the string use filter(Boolean) 
+>>Use .filter(Boolean) to remove undefined values in videoIds.
+Ensured API fetch results are properly validated before setting state
+
+  {The two lists are almost the same, but the second list after using ffilter has one additional ID (_qrizEca1ws).
+The first list has an extra comma and some extra spaces in one entry.
+The order of some video IDs differs}
+
+>> then fetch the statistics and content details from using other api and then show it on the page
+
+## Pagination is added in the search page and every where 
+>>See how it works
+you have to mantain two state varaible >> nextpagetoken and prevpagetoken 
+>> you have to pass the state value to the api fetching a object ,  that  object contains number of videos and nextpage token and info about the page 
+
+Object
+etag: "1kBmDXXLHcraf1Ur148wJepcbCQ"
+items: (22) [{…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}, {…}]
+kind: "youtube#searchListResponse"
+nextPageToken: "CBQQAA"
+pageInfo: {totalResults: 1000000, resultsPerPage: 22}
+regionCode: "IN"
+[[Prototype]]: Object 
+
+>>that api is youtube data api search videos using query 
+const Query_videos_url = async (pageToken = "") => {
+    const VideosByQuery_URL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${query}&key=${api_key}&pageToken=${pageToken}`;
+    const response = await fetch(VideosByQuery_URL);
+    const jsondata = await response.json();
+<!-- set the pagetoken value extracting from the object -->
+    setnextpagetoken(jsondata.nextPageToken || null);
+    setprevpagetoken(jsondata.prevPageToken || null);
+
+>>then in the return page>> pass the nextpagetoken value to the api_url to fetch the data..for the same query
+       {prevpagetoken && (
+          <button onClick={() => Query_videos_url(prevpagetoken)}>
+            Previous
+          </button>
+        )}
+        {nextpagetoken && (
+          <button onClick={() => Query_videos_url(nextpagetoken)}>
+            Next
+          </button>
+        )}
+
+# remember
+React optimizes rendering by only re-rendering components that have state or prop changes. However, if the new state value is identical to the previous one, as determined by an Object.is comparison, React will skip the re-rendering of the component and its children, even though the state was updated.
+
+In React, when the value in a state variable changes, the component re-renders to reflect the updated state. This re-rendering process is triggered automatically by React when the state is updated using the setState method or the useState hook
+        
+# .find()
+>>The .find() method is used to search for the first element in an array that satisfies a given condition. If it finds a matching element, it returns that element; otherwise, it returns undefined
+>>const result = array.find((element) => condition);
+- {why to not use map in SearchCard?? >>
+.map() always iterates through the entire array, even after finding a match, which is unnecessary.
+.map() returns a new array, but you’re not using that new array.
+Calling setchannelimage() multiple times in a loop can cause multiple unnecessary re-renders.
+}
+

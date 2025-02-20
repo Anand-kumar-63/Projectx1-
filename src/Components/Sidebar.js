@@ -1,75 +1,70 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
-// import AppStore from "../utils/Store";
-import {Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
+
 const Sidebar = () => {
-
   const ismenuopen = useSelector((state) => state.sidebar.istogglemenu);
-  if(!ismenuopen) return null;
+  // Menu Items
+  const menuItems = [
+    { icon: "ic:round-home", name: "Home", path: "/" },
+    { icon: "material-symbols-light:format-underlined-squiggle-rounded", name: "Shorts", path: "/Shorts" },
+    { icon: "material-symbols-light:subscriptions-outline", name: "Subscriptions", path: "/Subs" },
+  ];
+
+  const userItems = [
+    { icon: "fluent:history-20-regular", name: "History" },
+    { icon: "ic:outline-watch-later", name: "Watch Later" },
+    { icon: "ph:video-thin", name: "Your Video" },
+    { icon: "ph:playlist-thin", name: "Playlist" },
+    { icon: "solar:like-line-duotone", name: "Liked Video" },
+  ];
+
   return (
-    <div className="flex flex-col gap-4 m-4 font-mono divide-y-[1px] select-none divide-gray-300 cursor-pointer shadow-lg h-auto">
-      <div id="section-1" className="">
+    <div
+      className={`fixed top-[40px] left-0 h-[700px] w-[275px] z-10 bg-black text-white shadow-lg transition-transform duration-300 ease-in-out overflow-auto no-scrollbar 
+      ${ismenuopen ? "translate-x-0" : "-translate-x-full"}`}
+    >
+      {/* Section 1 - Main Menu */}
+      <div className="flex flex-col gap-4 px-4 py-2 font-mono divide-y divide-gray-300">
         <ul className="flex flex-col gap-3">
-          <li className="flex gap-2">
-            <Icon icon="ic:round-home" className="text-2xl" />
-           <Link to = {"/"} >Home</Link> 
-          </li>
-
-         <Link to="/Shorts"> <li className="flex items-center gap-2 text-gray-950">
-            <Icon
-              icon="material-symbols-light:format-underlined-squiggle-rounded"
-              className="text-2xl"
-            />
-            Shorts
-          </li>
-          </Link>
-         <Link to="/Subs"> <li className="flex items-center gap-2 text-gray-950">
-            <Icon
-              icon="material-symbols-light:subscriptions-outline"
-              className="text-2xl"
-            />
-            Subscriptions
-          </li>
-          </Link>
+          {menuItems.map((item, index) => (
+            <Link key={index} to={item.path} className="flex gap-2 items-center cursor-pointer">
+              <Icon icon={item.icon} className="text-2xl" />
+              {item.name}
+            </Link>
+          ))}
         </ul>
-      </div>
-      <div id="section-2" className="gap-1 mt-2 flex flex-col">
-       
-        <h1 className="font-extrabold flex gap-1 mt-3 mb-3 items-center">
-          You
-          <Icon icon="formkit:right" className="text-sm" />
-        </h1>
-       
-        <ul className="flex flex-col gap-3">
-          <li className="flex gap-2 items-center">
-            <Icon icon="fluent:history-20-regular" className="text-2xl" />
-            History
-          </li>
 
-          <li className="flex gap-2 items-center">
-            <Icon icon="ic:outline-watch-later" className="text-2xl" />
-            Watch Later
-          </li>
+        {/* Section 2 - User */}
+        <div className="mt-2">
+          <h1 className="font-extrabold flex gap-1 mt-3 mb-3 items-center">
+            You <Icon icon="formkit:right" className="text-sm" />
+          </h1>
+          <ul className="flex flex-col gap-3">
+            {userItems.map((item, index) => (
+              <li key={index} className="flex gap-2 items-center cursor-pointer">
+                <Icon icon={item.icon} className="text-2xl" />
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          <li className="flex gap-2 items-center">
-            <Icon icon="ph:video-thin" className="text-2xl" />
-            Your Vedio
-          </li>
-
-          <li className="flex gap-2 items-center">
-            <Icon icon="ph:playlist-thin" className="text-2xl" />
-            Playlist
-          </li>
-
-          <li className="flex gap-2 items-center">
-            <Icon icon="solar:like-line-duotone" className="text-2xl" />
-            Liked Video
-          </li>
-        </ul>
-      </div>
-      <div id="section-3">
-        <h1>Subscriptions</h1>
+        {/* Section 3 - Subscriptions */}
+        <div className="mt-2">
+          <h1 className="font-extrabold flex gap-1 mt-3 mb-3 items-center">
+            Subscriptions <Icon icon="formkit:right" className="text-sm" />
+          </h1>
+          <ul className="flex flex-col gap-3">
+            {userItems.map((item, index) => (
+              <li key={index} className="flex gap-2 items-center cursor-pointer">
+                <Icon icon={item.icon} className="text-2xl" />
+                {item.name}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

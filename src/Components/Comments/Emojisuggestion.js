@@ -9,7 +9,7 @@ const Emojisuggestion = () => {
   },[])
 
  const fetchemoji = async ()=>{
-  const data = await fetch("https://emoji-api.com/categories?access_key=38fc846f1c650b2474d05b6b30f171cfe688c5e9")
+  const data = await fetch("https://emoji-api.com/categories?access_key=AIzaSyA4xc0wMOsLqmPX02S4f-a-Rt6qM42c0ZM")
   const josndata = await data.json();
   console.log(data);
  }

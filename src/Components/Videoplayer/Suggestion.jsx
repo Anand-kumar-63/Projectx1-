@@ -2,16 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import SuggestionVideoCard from "./SuggestionVideoCard";
+import { api_key } from "../../utils/Constants";
 const Suggestion = () => {
 
   const [suggestionVideo, setsuggestionVideo] = useState([]);
   const [tagString, settagString] = useState("");
   const [videoId , setvideoId] = useState([])
-  
+  const [nextPageToken , setnextPageToken] = useState(null)
+  const [prevPageToken , setprevPageToken] = useState(null);
+
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
-
-  const api_key="AIzaSyCw9eOmRziBvp5ALYMHFkMIx1eRs04nbPM"
+  
   const VideoById_URL = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${id}&key=${api_key}`;
 
   useEffect(() => {
@@ -37,12 +39,17 @@ const Suggestion = () => {
     }
   }, [tagString]); 
 
-  const videos_api_call = async () => {
-    const VideosByTags_URL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&q=${tagString}&key=${api_key}`;
+  const videos_api_call = async (pageToken="") => {
+    const VideosByTags_URL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${tagString}&key=${api_key}&pageToken=${pageToken}`;
       const response = await fetch(VideosByTags_URL);
       const jsondata = await response.json();
-      const videoid = (jsondata.items?.map(video=>(video.id?.videoId)).join(","))
-      // console.log(videoid);
+      console.log(jsondata);
+
+      setnextPageToken(jsondata.nextPageToken || null)
+      setprevPageToken(jsondata.prevPageToken || null)
+
+      const videoid = (jsondata.items?.map(video=>(video.id?.videoId)).filter(Boolean).join(","))
+      
       setvideoId(videoid);
   };
 
@@ -54,10 +61,14 @@ const Suggestion = () => {
 
  const get_statisticsdata_api = async()=>{
   const data = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${videoId}&key=${api_key}`);
-  const jsondata = await data.json();
+  try{const jsondata = await data.json();
   console.log(jsondata.items);
-  setsuggestionVideo(jsondata.items);
+  setsuggestionVideo(jsondata.items);}
+  catch(error){
+    console.log("ERROR IS HERE",error)
+  }
  }
+
   return (
     <div>
       {suggestionVideo.map((video)=>
@@ -65,6 +76,14 @@ const Suggestion = () => {
         <SuggestionVideoCard info={video}/>
       </Link>
       )}
+
+      <div>
+        {prevPageToken && <button onClick={() => videos_api_call(prevPageToken) } >PREV</button>
+        }
+        {
+          nextPageToken && <button onClick={() => videos_api_call(nextPageToken) } >NEXT</button>
+        }
+      </div>
     </div>
   );
 };

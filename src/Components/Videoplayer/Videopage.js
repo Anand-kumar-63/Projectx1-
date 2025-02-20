@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closemenu } from "../../utils/Menuslice";
 import YoutubeVideo from "../Iframe";
 import Button from "../Button";
@@ -8,28 +8,34 @@ import { Icon } from "@iconify/react";
 import Comments from "../Comments/Comments";
 import Description from "../Description/Description";
 import Suggestion from "./Suggestion";
+import { api_key } from "../../utils/Constants";
 
 const Videopage = () => {
+  const ismenuopen = useSelector((state) => state.sidebar.istogglemenu);
+
   // to get the params from the url of the page we use searchParams
   const buttons = ["All", "React", "Web"];
   const [videodata, setvideodata] = useState([]);
   const dispatch = useDispatch();
   const btnname = "subscribe";
   //  dispatch the closemenu action inside the use effect
+
   useEffect(() => {
     dispatch(closemenu());
-  });
+  }, []);
+
   const [SearchParams] = useSearchParams();
   const id = SearchParams.get("id");
 
   useEffect(() => {
-    if(id){
-    getdata();}
+    if (id) {
+      getdata();
+    }
   }, [id]);
 
   const getdata = async () => {
     const data = await fetch(
-      `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${id}&key=AIzaSyCw9eOmRziBvp5ALYMHFkMIx1eRs04nbPM`
+      `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails,statistics&id=${id}&key=${api_key}`
     );
     const stat = await data.json();
     // console.log(stat.items[0]);
@@ -48,10 +54,10 @@ const Videopage = () => {
     return num; // If less than 1000, return as is
   };
   return (
-    <div className="flex flex-row">
+    <div className={`flex flex-row relative ${ismenuopen?" bg-black opacity-90 transition-opacity duration-300":""}`}>
       {/* /video section of the video */}
-      <div className="m-4 ml-[120px] w-[800px]">
-        <div className="h-[480px] w-[800px] flex items-center justify-center bg-black  rounded-xl">
+      <div className="m-4 ml-[120px] max-w-[800px] absolute">
+        <div className={`h-[480px] w-[800px] flex items-center justify-center rounded-xl ${ismenuopen?"":""}` }>
           <YoutubeVideo videoId={id} />
         </div>
 
@@ -109,7 +115,7 @@ const Videopage = () => {
       </div>
 
       {/* suggestion section of the videopage  */}
-      <div className="mt-2 flex flex-col">
+      <div className="mt-2 flex flex-col absolute left-[960px]">
         <div>
           <ul className="flex mt-4 px-4">
             {buttons.map((name, index) => (
@@ -121,7 +127,8 @@ const Videopage = () => {
         </div>
 
         <div className="">
-          <Suggestion /></div>
+          <Suggestion />
+        </div>
       </div>
     </div>
   );

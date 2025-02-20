@@ -4,7 +4,7 @@ import Body from './Body';
 import Header from './Components/Header';
 import { Provider } from 'react-redux';
 import AppStore from './utils/Store';
-import {createBrowserRouter , RouterProvider } from 'react-router-dom';
+import {BrowserRouter, createBrowserRouter , RouterProvider } from 'react-router-dom';
 import MainContainer from './Components/MainContainer';
 import Videopage from './Components/Videoplayer/Videopage';
 import Shorts from './Components/Shorts';
@@ -12,11 +12,9 @@ import Subs from "./Components/Subs"
 import Channel from './Components/Channel';
 import Signup from './Components/UserPage/Usersignup';
 import Login from './Components/UserPage/Userlogin';
-
-
+import Searchpage from './Components/SearchPage/Searchpage.jsx';
+import Channelpage from './Components/Channelpage/Channelpage.jsx';
 function App() {
-
-
   const approuter = createBrowserRouter([{
   path:"/",
   element: <Body />,
@@ -49,6 +47,14 @@ function App() {
   {
     path:"/Signup",
     element:<Signup />
+  },
+  {
+    path:"/Searchpage",
+    element:<Searchpage />
+  }
+  ,{
+    path:"/Channel?id=",
+    element:<Channelpage />
   }
 ])
   return (

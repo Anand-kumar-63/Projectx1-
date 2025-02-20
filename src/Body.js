@@ -4,7 +4,7 @@ import Sidebar from "./Components/Sidebar";
 import { Outlet } from "react-router-dom";
 const Body = ()=>{
   return(
-    <div className="flex w-auto font-body">
+    <div className="flex w-auto font-body relative">
       <Sidebar />
       <Outlet />
       {/* To load either the main comtainer or the watch page we use outlet*/}
