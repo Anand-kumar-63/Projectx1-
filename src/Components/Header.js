@@ -6,13 +6,10 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const [searchquery, setsearchquery] = useState("");
   const [suggetions, setsuggetions] = useState([]);
-  const [showsuggetions, setshowsuggetions] = useState(true);
+  const [showsuggetions, setshowsuggetions] = useState(false);
   const [showsearchicon, setshowsearchicon] = useState(false);
-  const [Sidebarstate , setsidebarstate] = useState(true);
-
   useEffect(() => {
     const timer = setTimeout(() => searchdata(), 200);
-    // to end this timer if any other key is pressed within the 200ms time
     return () => {
       clearTimeout(timer);
     };
@@ -41,15 +38,14 @@ const Header = () => {
     <div className="flex bg-black text-white justify-between font-roboto h-14">
       <div className="flex h-14 items-center justify-center">
         <div onClick={() => togglethemenu()} className="m-4 flex item-center">
-          <Icon icon="charm:menu-hamburger"  width="28" height="28" />
-          
-        <img
-          src="https://imgs.search.brave.com/UzpyViJrQPPCbpJzTIz3Ac2rrPvErzU6NAVqUAApTdU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9mcmVl/cG5nbG9nby5jb20v/aW1hZ2VzL2FsbF9p/bWcvMTcyNzYxMTYy/Nl9sb2dvLXlvdXR1/YmUtcG5nLmpwZw"
-          alt="youtube"
-          className=" w-[180px] h-9 object-contain bg-black"
-        />
-        </div>
+          <Icon icon="charm:menu-hamburger" width="28" height="28" />
 
+          <img
+            src="https://imgs.search.brave.com/UzpyViJrQPPCbpJzTIz3Ac2rrPvErzU6NAVqUAApTdU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9mcmVl/cG5nbG9nby5jb20v/aW1hZ2VzL2FsbF9p/bWcvMTcyNzYxMTYy/Nl9sb2dvLXlvdXR1/YmUtcG5nLmpwZw"
+            alt="youtube"
+            className=" w-[180px] h-9 object-contain bg-black"
+          />
+        </div>
       </div>
       <div>
         <div className="flex justify-center items-center ml-[200px] bg-black text-white">
@@ -61,8 +57,10 @@ const Header = () => {
           <input
             value={searchquery}
             onChange={(e) => setsearchquery(e.target.value)}
-            onFocus={() => [setshowsuggetions(true), setshowsearchicon(true)]}
-            onBlur={() => [setshowsuggetions(false), setshowsearchicon(false)]}
+            onFocus={() => {
+              setshowsuggetions(true);
+              setshowsearchicon(true);
+            }}
             type="search"
             placeholder="Search Something"
             className={`bg-black border-2 ${
@@ -81,13 +79,13 @@ const Header = () => {
         </div>
 
         {showsuggetions && (
-          <div className=" w-[540px] ml-[200px] rounded-b-md bg-white shadow-sm text-sm h-auto absolute">
+          <div className=" w-[540px] ml-[200px] rounded-b-md bg-white z-10 shadow-sm text-sm h-auto absolute">
             <ul>
               {suggetions.map((s) => (
-                <Link to={"/Searchpage?q=" + s}>
+                <Link  key={s} to={`/Searchpage`+`?q=`+ `${s}`}>
                   <li
-                    className="p-1 hover:bg-gray-100 gap-2 s flex mx-1"
-                    key={s}
+                    className="p-1 hover:bg-gray-200 gap-2 text-black z-10 flex mx-1 cursor-pointer"
+                   
                   >
                     <Icon icon="iconoir:search" width="24" height="24" />
                     {s}

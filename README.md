@@ -283,3 +283,15 @@ In React, when the value in a state variable changes, the component re-renders t
 Calling setchannelimage() multiple times in a loop can cause multiple unnecessary re-renders.
 }
 
+# SearchBar Error ?
+>>before usign the Link tag make sure that the component in which you are using the Link should be properly wrapped inside the browserRouter 
+
+>>React Router provides navigation functionality using a context (RouterContext). This context is created when your application is wrapped inside a <BrowserRouter> or <RouterProvider>.
+If a component tries to use <Link> or useNavigate() without being inside a router, it throws this error because the useContext hook inside react-router-dom is expecting a valid Router context, but it gets null
+
+>>Missing <BrowserRouter> or <RouterProvider> in App.js
+If you use <Link> or useNavigate() inside a component but your app is not wrapped inside a <BrowserRouter> or <RouterProvider>, React doesn't know about the routing system.
+Using <Link> Outside the Router Context
+If a component containing <Link> is rendered before the router is initialized, the router context doesn't exist yet.
+Mixing createBrowserRouter and <BrowserRouter> Incorrectly
+If you're using createBrowserRouter (newer method) along with <BrowserRouter> (older method), they may conflict

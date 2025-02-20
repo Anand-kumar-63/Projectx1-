@@ -30,19 +30,26 @@ console.log(title)
   const { snippet, statistics } = info;
   const { channelTitle, localized, thumbnails } = snippet;
   const thumbnailUrl = thumbnails?.high?.url;
+
+
+  const formatnumber = (num)=>{
+    if(num==null) return null
+    if(num>1000 && num <1000000 ) return ((num/1000).toFixed(1) + "k views")
+    if(num>1000000) return ((num/1000000).toFixed(2) + "M views")
+  }
   return (
     <div className={`flex text-xl shadow-lg rounded-sm ${ismenuopen?"w-[1200px] min-w-[400px]":"w-[1400px] min-w-[700px]"} h-[350px] bg-white mx-4 my-2 hover:scale-[1.002] hover:transition-all duration-200`}>
       <img
-        className="rounded-lg w-[500px] h-[322px]  hover:rounded-none"
+        className="rounded-lg w-[550px] h-[340px] font-[100]"
         alt="video thumbnail"
         src={thumbnailUrl}
       />
       <div className="ml-4 mt-4 object-contain">
         <ul>
           <li>{snippet.title}</li>
-          <li className="flex text-sm">{statistics.viewCount / 1000000}m views . 
-           <div >
-          {` ${yearago} year ago`}
+          <li className="flex text-sm">{formatnumber(statistics.viewCount)}
+           <div className="ml-2" >
+          {`- ${yearago} year ago`}
           </div>
           </li>
         </ul>

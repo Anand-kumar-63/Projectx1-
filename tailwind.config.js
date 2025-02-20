@@ -1,20 +1,24 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
-      fontFamily:{
-        body:['Roboto:ital']
+      fontFamily: {
+        body: ['Roboto', 'sans-serif'], // Correct font definition
       },
-    },
-    divideWidth: {
-      DEFAULT: "1px",
-      "0": "0",
-      "2": "2px",
-      "3": "3px",
-      "4": "4px",
-      "6": "6px",
-      "8": "8px",
+      fontWeight: {
+        ultrabold: '900', // Added a custom weight instead of overriding extrabold
+      },
+      divideWidth: {
+        DEFAULT: "1px",
+        "0": "0",
+        "2": "2px",
+        "3": "3px",
+        "4": "4px",
+        "6": "6px",
+        "8": "8px",
+      },
     },
   },
   plugins: [

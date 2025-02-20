@@ -18,11 +18,9 @@ const Searchpage = () => {
   const ismenuopen = useSelector(state => state.sidebar.istogglemenu);
   const dispatch = useDispatch();
   useEffect(()=>{
-    dispatch(closemenu);
+    dispatch(closemenu());
   },[])
   
-  
-
   const [SearchParam] = useSearchParams();
   const query = SearchParam.get("q");
   useEffect(() => {
@@ -35,7 +33,7 @@ const Searchpage = () => {
     const VideosByQuery_URL = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&q=${query}&key=${api_key}&pageToken=${pageToken}`;
     const response = await fetch(VideosByQuery_URL);
     const jsondata = await response.json();
-    // console.log(jsondata);
+    console.log(jsondata);
 
     setnextpagetoken(jsondata.nextPageToken || null);
     setprevpagetoken(jsondata.prevPageToken || null);
@@ -85,7 +83,7 @@ const Searchpage = () => {
           <SearchCard info={video} channeldata = {channeldata}/>
         </Link>
       ))}
-      <div className="pagination-buttons flex justify-center mb-2">
+     {channeldata && <div className="pagination-buttons flex justify-center mb-2">
         {prevpagetoken && (
           <button  className="px-4 py-1 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-2xl shadow-md transition duration-300 ml-4" onClick={() => Query_videos_url(prevpagetoken)}>
             Previous
@@ -96,7 +94,7 @@ const Searchpage = () => {
             Next
           </button>
         )}
-      </div>
+      </div>}
     </div>
   );
 };

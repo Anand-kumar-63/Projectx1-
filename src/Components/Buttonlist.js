@@ -2,6 +2,7 @@ import React , {useRef} from "react";
 import Button from "./Button";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Buttonlist = () => {
 
   const ismenuopen = useSelector((state)=>state.sidebar.istogglemenu) 
@@ -25,7 +26,8 @@ const slidebtn = ["soccer","football","wwe","Webdev","Appdev","Python","Machin l
       {/* list of buttons */}
       <ul ref={refelement} className="flex select-none gap-2 overflow-x-auto no-scrollbar py-1">
     {slidebtn.map((name,index)=>(
-      <li key={index}><Button name={name}></Button></li>
+      <Link to={`/SearchPage`+`?q=`+ name}><li key={index}><Button name={name}></Button></li></Link>
+
     ))}
       </ul>
       <button  onClick={() => scrollslider(200)} className="flex justify-end items-center w-[120px] hover:cursor-pointer rounded-xl bg-gradient-to-r from-black to-gray-900">
