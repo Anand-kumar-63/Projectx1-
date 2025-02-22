@@ -8,6 +8,8 @@ const Header = () => {
   const [suggetions, setsuggetions] = useState([]);
   const [showsuggetions, setshowsuggetions] = useState(false);
   const [showsearchicon, setshowsearchicon] = useState(false);
+  const [showuser,setshowuser] = useState(false)
+  const [Loggedin , setLoggedin] = useState(false);
   useEffect(() => {
     const timer = setTimeout(() => searchdata(), 200);
     return () => {
@@ -35,17 +37,17 @@ const Header = () => {
     dispatch(Togglemenu());
   };
   return (
-    <div className="flex bg-black text-white justify-between font-roboto h-14">
-      <div className="flex h-14 items-center justify-center">
+    <div className="flex bg-black text-white justify-between font-roboto h-14 ">
+      <div className="flex h-14 items-center">
         <div onClick={() => togglethemenu()} className="m-4 flex item-center">
           <Icon icon="charm:menu-hamburger" width="28" height="28" />
-
-          <img
-            src="https://imgs.search.brave.com/UzpyViJrQPPCbpJzTIz3Ac2rrPvErzU6NAVqUAApTdU/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9mcmVl/cG5nbG9nby5jb20v/aW1hZ2VzL2FsbF9p/bWcvMTcyNzYxMTYy/Nl9sb2dvLXlvdXR1/YmUtcG5nLmpwZw"
-            alt="youtube"
-            className=" w-[180px] h-9 object-contain bg-black"
-          />
         </div>
+        <Link to={"/"}>
+          <div className="flex items-center text-xl">
+            <Icon icon="logos:youtube-icon" width="68.27" height="28" />
+            YouTube
+          </div>
+        </Link>
       </div>
       <div>
         <div className="flex justify-center items-center ml-[200px] bg-black text-white">
@@ -82,11 +84,8 @@ const Header = () => {
           <div className=" w-[540px] ml-[200px] rounded-b-md bg-white z-10 shadow-sm text-sm h-auto absolute">
             <ul>
               {suggetions.map((s) => (
-                <Link  key={s} to={`/Searchpage`+`?q=`+ `${s}`}>
-                  <li
-                    className="p-1 hover:bg-gray-200 gap-2 text-black z-10 flex mx-1 cursor-pointer"
-                   
-                  >
+                <Link key={s} to={`/Searchpage` + `?q=` + `${s}`}>
+                  <li className="p-1 hover:bg-gray-200 gap-2 text-black z-10 flex mx-1 cursor-pointer">
                     <Icon icon="iconoir:search" width="24" height="24" />
                     {s}
                   </li>
@@ -107,11 +106,12 @@ const Header = () => {
         </button>
       </div>
 
-      <div>
-        <img
-          className="h-12 w-12 m-2"
-          src="https://static.vecteezy.com/system/resources/previews/036/885/313/non_2x/blue-profile-icon-free-png.png"
-        ></img>
+      <div className="relative right-3">
+        <Icon onClick={()=>setshowuser(!showuser)} onBlur={()=>setshowuser(false)} icon="mingcute:user-4-fill" width="42" height="48" />
+        {showuser && <div className="fixed right-6 top-[50px] z-10 flex flex-col bg-blue-600 rounded-lg">
+          <Link to={"/Signup"}><button className="flex gap-1 items-center px-4 h-[30px] rounded-t-lg border-2 border-blue-800">Sign Up</button></Link>
+         <Link to={"/Login"}><button className={`flex gap-1 items-center ${Loggedin?"px-[19px]":"px-6"} h-[30px] rounded-b-lg border-2 border-blue-800`}>{Loggedin?"Logout":"Login"}</button></Link>
+        </div>}
       </div>
     </div>
   );

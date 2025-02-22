@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import SuggestionVideoCard from "./SuggestionVideoCard";
 import { api_key } from "../../utils/Constants";
-const Suggestion = () => {
+const   Suggestion = () => {
 
   const [suggestionVideo, setsuggestionVideo] = useState([]);
   const [tagString, settagString] = useState("");

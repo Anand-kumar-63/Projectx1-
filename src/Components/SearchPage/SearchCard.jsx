@@ -57,7 +57,7 @@ console.log(title)
         {channelimage && (
           <div>
           <div className="flex gap-2">
-          <Link to={"/Channel?id="}><img
+          <Link to={`/Channel`+`?id=`+ `${snippet.snippet?.channelId}`}><img
             className="w-10 h-10 rounded-full mb-2"
             src={channelimage}
             alt="Channel"

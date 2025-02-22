@@ -22,7 +22,7 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`fixed top-[40px] left-0 h-[700px] w-[275px] z-10 bg-black text-white shadow-lg transition-transform duration-300 ease-in-out overflow-auto no-scrollbar 
+      className={`fixed top-[48px] left-0 h-[700px] w-[275px] z-10 bg-black text-white shadow-lg transition-transform duration-300 ease-in-out overflow-auto no-scrollbar 
       ${ismenuopen ? "translate-x-0" : "-translate-x-full"}`}
     >
       {/* Section 1 - Main Menu */}
